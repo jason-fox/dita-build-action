@@ -49,6 +49,12 @@ if [ ! -z "${PLUGINS}" ]; then
 	for prereq in $list
 	do
 		dita install "$prereq"
+
+  		ret=$?
+		if [ $ret -ne 0 ]; then
+  			echo "[ERROR] Install failed"
+  			exit ret
+		fi
 	done
 fi
 
@@ -78,3 +84,9 @@ else
 	echo "[INFO] Running PDF build" 
 	dita -i "${INPUT}" -o "${OUTPUT_PATH}/pdf"  -f pdf "${PROPERTIES}"
 fi	
+
+ret=$?
+if [ $ret -ne 0 ]; then
+	echo "[ERROR] Build failed"
+	exit ret
+fi
