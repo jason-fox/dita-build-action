@@ -32,7 +32,7 @@ RUN export DEBIAN_FRONTEND=noninteractive && \
     locale-gen en_US.UTF-8 && \
     rm -rf /var/lib/apt/lists/* && \
     chmod +x /entrypoint.sh && \
-    chmod +x /build_script.sh  && 
+    chmod +x /build_script.sh && \
     chmod +x /install_script.sh
 
 ENV LANG=en_US.UTF-8  
