@@ -11,6 +11,7 @@ COPY --from=eclipse-temurin:21 $JAVA_HOME $JAVA_HOME
 ENV PATH="${JAVA_HOME}/bin:${PATH}"
 
 ENV DITA_HOME=/opt/app
+ENV PATH=${PATH}:${DITA_HOME}/bin
 COPY --from=ghcr.io/dita-ot/dita-ot:4.3.3 $DITA_HOME $DITA_HOME
 
 USER root
@@ -31,11 +32,15 @@ RUN export DEBIAN_FRONTEND=noninteractive && \
     locale-gen en_US.UTF-8 && \
     rm -rf /var/lib/apt/lists/* && \
     chmod +x /entrypoint.sh && \
-    chmod +x /build_script.sh  && \
+    chmod +x /build_script.sh  && 
     chmod +x /install_script.sh
 
 ENV LANG=en_US.UTF-8  
 ENV LANGUAGE=en_US:en  
 ENV LC_ALL=en_US.UTF-8
+
+RUN useradd -ms /bin/bash dita-ot && \
+    chown -R dita-ot:dita-ot /opt/app
+USER dita-ot
 
 ENTRYPOINT ["/entrypoint.sh"]
