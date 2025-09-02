@@ -3,7 +3,7 @@
 # This file is part of the DITA-OT Build GitHub Action project.
 # See the accompanying LICENSE file for applicable licenses.
 
-FROM --platform=$BUILDPLATFORM ghcr.io/dita-ot/dita-ot:4.3.3 AS DITA_OT
+FROM --platform=$BUILDPLATFORM ghcr.io/dita-ot/dita-ot:4.3.3 AS dita-ot
 ARG TARGETPLATFORM
 ARG BUILDPLATFORM
 RUN echo "I am running on $BUILDPLATFORM, building for $TARGETPLATFORM"
@@ -28,8 +28,8 @@ RUN export DEBIAN_FRONTEND=noninteractive && \
 	chmod +x /build_script.sh  && \
 	chmod +x /install_script.sh
 
-ENV LANG en_US.UTF-8  
-ENV LANGUAGE en_US:en  
-ENV LC_ALL en_US.UTF-8
+ENV LANG=en_US.UTF-8  
+ENV LANGUAGE=en_US:en  
+ENV LC_ALL=en_US.UTF-8
 
 ENTRYPOINT ["/entrypoint.sh"]
