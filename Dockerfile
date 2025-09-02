@@ -24,6 +24,7 @@ RUN export DEBIAN_FRONTEND=noninteractive && \
     apt-get update && \
     apt-get install --reinstall tzdata && \
     apt-get install -y locales && \
+    apt-get install -y curl && \
     ln -fs /usr/share/zoneinfo/America/New_York /etc/localtime && \
     dpkg-reconfigure --frontend noninteractive locales tzdata && \
     locale-gen en_US.UTF-8 && \
